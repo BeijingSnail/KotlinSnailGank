@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/HomePage">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/item_android"
+                    android:icon="@mipmap/android_up"
+                    android:title="Android"></item>
+                <item
+                    android:id="@+id/item_ios"
+                    android:icon="@mipmap/ios_up"
+                    android:title="iOS"></item>
+                <item
+                    android:id="@+id/item_welfare"
+                    android:icon="@mipmap/welfare_up"
+                    android:title="@string/Welfare"></item>
+                <item
+                    android:id="@+id/item_res"
+                    android:icon="@mipmap/res_up"
+                    android:title="@string/ExpandingResources"></item>
+            </group>
+
+        </menu>
+
+    </item>
+    <item android:title="@string/More">
+        <menu>
+            <item
+                android:id="@+id/item_skin"
+                android:icon="@mipmap/skin_icon"
+                android:title="@string/ChangeTheme"></item>
+            <item
+                android:id="@+id/about"
+                android:icon="@mipmap/about_icon"
+                android:title="@string/About"></item>
+
+        </menu>
+    </item>
+
+
+</menu>
