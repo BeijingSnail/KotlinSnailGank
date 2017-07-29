@@ -25,6 +25,7 @@ object Constant {
     val OPENURL = "URL"
 
     val REFRESHSTYLE = ProgressStyle.BallSpinFadeLoader
+    val LOADINGSTYLE = ProgressStyle.BallSpinFadeLoader
 
     val POSITION = "position"
     val UELLIST = "urllist"
