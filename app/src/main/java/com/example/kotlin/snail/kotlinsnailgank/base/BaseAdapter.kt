@@ -3,6 +3,7 @@ package com.example.kotlin.snail.kotlinsnailgank.base
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import java.util.*
@@ -11,15 +12,23 @@ import java.util.*
 /**
  * Created by 张志强 on 2017/7/29.
  */
-abstract class BaseAdapter<T>(var dataSet: ArrayList<T>?, val mContext: Context) : RecyclerView.Adapter<BaseViewHolder>() {
+//
+abstract class BaseAdapter<T> constructor(open var dataSet: ArrayList<T>?, open val mContext: Context) : RecyclerView.Adapter<ViewHolder>() {
 
     var mRecyclerViewItemClickListener: RecyclerViewItemClickListener? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BaseViewHolder {
+    open val layoutInflater = LayoutInflater.from(mContext)!!
+
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
+
         var view = getViewResource(viewType)
-        var holder = BaseViewHolder(view)
+        var holder = ViewHolder(view)
         addAllViewItems(holder.viewMap, view)
         return holder
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
+        bindData(holder?.viewMap, dataSet?.get(position), position)
     }
 
 
@@ -41,6 +50,12 @@ abstract class BaseAdapter<T>(var dataSet: ArrayList<T>?, val mContext: Context)
      */
     abstract fun getViewResource(viewType: Int): View
 
+    /**
+     * 绑定item数据
+     */
+    abstract fun bindData(viewMap: SparseArray<View>?, t: T?, position: Int)
+
+
     override fun getItemCount(): Int = dataSet?.size ?: 0
 
     fun addData(data: List<T>) = dataSet?.addAll(data)
@@ -55,11 +70,12 @@ abstract class BaseAdapter<T>(var dataSet: ArrayList<T>?, val mContext: Context)
 
     fun getItem(position: Int): T? = dataSet?.get(position)
 
+
 }
 
-class BaseViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+class ViewHolder : RecyclerView.ViewHolder {
     var viewMap = SparseArray<View>()
 
-//    constructor(itemView: View?) : super(itemView)
+    constructor(itemView: View?) : super(itemView)
 
 }
