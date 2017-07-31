@@ -18,7 +18,7 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
     private int space;
 
     public SpaceItemDecoration(int space) {
-        this.space = (int) DensityUtil.dip2px(GankApp.getInstance().getApplicationContext(), space);
+        this.space = (int) DensityUtil.dip2px(GankApp.Companion.getInstance(), space);
     }
 
     @Override

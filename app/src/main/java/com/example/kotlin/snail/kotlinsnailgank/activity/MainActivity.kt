@@ -1,10 +1,14 @@
 package com.example.kotlin.snail.kotlinsnailgank.activity
 
+import android.graphics.drawable.Drawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.annotation.DrawableRes
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
+import android.support.v4.graphics.drawable.DrawableCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.util.TypedValue
 import android.view.Gravity
 import android.widget.RadioGroup
 import com.example.kotlin.snail.kotlinsnailgank.R
@@ -84,9 +88,82 @@ class MainActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeListener {
      */
     fun setTabSelection(index: Int) {
         var transaction = fm?.beginTransaction()
-        if (transaction != null) {
-            hindeAllFragment(transaction)
+        hindeAllFragment(transaction!!)
+        when (index) {
+            Constant.ANDROIDFRAGMENT -> {
+                selectedAndorid()
+                //设置左侧item联动radioGrup
+                main_navigation_view.setCheckedItem(R.id.item_android)
+                //设置title的显示
+                main_toolbar_tv.text = "Android"
+                if (androidFragment == null) {
+                    androidFragment = AndroidFragment()
+                    transaction.add(R.id.main_content, androidFragment, Constant.AndroidFragmentTag)
+                } else {
+                    transaction.show(androidFragment)
+                }
+            }
+            Constant.IOSFRAGMENT -> {
+            }
+            Constant.WELFAREFRAGMENT -> {
+            }
+            Constant.RESFRAGMENT -> {
+            }
+
         }
+        transaction.commit()
+    }
+
+    /**
+     * 选中Android
+     */
+    fun selectedAndorid() {
+        val androidDrawable = getColorPrimaryDrawable(R.mipmap.android_up)
+        android_rb.setCompoundDrawablesWithIntrinsicBounds(null, androidDrawable, null, null)
+    }
+
+    /**
+     * 选中Ios
+     */
+    fun selectedIos() {
+        val iosDrawable = getColorPrimaryDrawable(R.mipmap.ios_up)
+        ios_rb.setCompoundDrawablesWithIntrinsicBounds(null, iosDrawable, null, null)
+    }
+
+    /**
+     * 选中Welfare
+     */
+    fun selectedWelfare() {
+        val welfareDrawable = getColorPrimaryDrawable(R.mipmap.welfare_up)
+        welfare_rb.setCompoundDrawablesWithIntrinsicBounds(null, welfareDrawable, null, null)
+    }
+
+    /**
+     * 选中Res
+     */
+    fun selectedRes() {
+        val resDrawable = getColorPrimaryDrawable(R.mipmap.res_up)
+        res_rb.setCompoundDrawablesWithIntrinsicBounds(null, resDrawable, null, null)
+    }
+
+    /**
+     * 获取变成ColorPrimary颜色的icon
+
+     * @return
+     * *
+     * @id 要转换的Drawable
+     */
+    fun getColorPrimaryDrawable(@DrawableRes id: Int): Drawable {
+        var drawable = resources.getDrawable(id)
+        val state = drawable.constantState
+        drawable = DrawableCompat.wrap(if (state == null) drawable else state.newDrawable()).mutate()
+
+        val typedValue = TypedValue()
+        theme.resolveAttribute(R.attr.colorPrimary, typedValue, true)
+        val color = typedValue.resourceId
+        val colorStateList = resources.getColorStateList(color)
+        DrawableCompat.setTintList(drawable, colorStateList)
+        return drawable
     }
 
     /**

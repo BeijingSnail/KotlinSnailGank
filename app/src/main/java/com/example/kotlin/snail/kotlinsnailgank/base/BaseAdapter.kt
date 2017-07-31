@@ -26,28 +26,32 @@ abstract class BaseAdapter<T>(context: Context) : RecyclerView.Adapter<ViewHolde
 
     var mRecyclerViewItemClickListener: RecyclerViewItemClickListener? = null
 
+    interface RecyclerViewItemClickListener {
+        fun onItemclick(view: View, position: Int)
+    }
+
+    fun setRecyclerViewItemClickListener(recyclerViewItemClickListener: RecyclerViewItemClickListener) {
+        this.mRecyclerViewItemClickListener = recyclerViewItemClickListener
+    }
+
     open val layoutInflater = LayoutInflater.from(mContext)!!
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
 
         var view = getViewResource(viewType)
+        view.setOnClickListener {
+            mRecyclerViewItemClickListener?.onItemclick(view, view.tag as Int)
+        }
         var holder = ViewHolder(view)
         addAllViewItems(holder.viewMap, view)
         return holder
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
+        holder?.itemView?.tag = position
         bindData(holder?.viewMap, dataSet?.get(position), position)
     }
 
-
-    fun setRecyclerViewItemClickListener(recyclerViewItemClickListener: RecyclerViewItemClickListener) {
-        this.mRecyclerViewItemClickListener = recyclerViewItemClickListener
-    }
-
-    interface RecyclerViewItemClickListener {
-        fun onItemclick(view: View, position: Int)
-    }
 
     /**
      * 记录下item布局下所有控件

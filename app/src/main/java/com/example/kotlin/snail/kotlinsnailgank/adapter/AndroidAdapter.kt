@@ -53,4 +53,5 @@ class AndroidAdapter<T>(mContext: Context) : BaseAdapter<T>(mContext) {
         viewMap.append(R.id.android_item_iv, view.findViewById(R.id.android_item_iv))
     }
 
+
 }

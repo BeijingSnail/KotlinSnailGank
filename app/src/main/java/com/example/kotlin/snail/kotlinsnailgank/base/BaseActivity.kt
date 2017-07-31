@@ -7,7 +7,7 @@ import android.view.View
 
 import com.example.kotlin.snail.kotlinsnailgank.common.ActivityPageManager
 
-class BaseActivity : AppCompatActivity() {
+open class BaseActivity : AppCompatActivity() {
     var view: View? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
