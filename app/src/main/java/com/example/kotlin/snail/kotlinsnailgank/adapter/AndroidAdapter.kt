@@ -20,7 +20,9 @@ import java.util.ArrayList
  * Created by 张志强 on 2017/7/31.
  */
 
-class AndroidAdapter<T>(override var dataSet: ArrayList<T>?, override val mContext: Context) : BaseAdapter<T>(dataSet, mContext) {
+class AndroidAdapter<T>(mContext: Context) : BaseAdapter<T>(mContext) {
+
+    constructor(data: ArrayList<T>, mContext: Context) : this(mContext)
 
     override fun bindData(viewMap: SparseArray<View>?, t: T?, position: Int) {
         val androidBean: AndroidBean = t as AndroidBean

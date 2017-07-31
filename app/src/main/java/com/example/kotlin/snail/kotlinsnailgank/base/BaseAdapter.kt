@@ -12,8 +12,17 @@ import java.util.*
 /**
  * Created by 张志强 on 2017/7/29.
  */
-//
-abstract class BaseAdapter<T> constructor(open var dataSet: ArrayList<T>?, open val mContext: Context) : RecyclerView.Adapter<ViewHolder>() {
+abstract class BaseAdapter<T>(context: Context) : RecyclerView.Adapter<ViewHolder>() {
+    var dataSet = ArrayList<T>()
+    var mContext: Context? = null
+
+    init {
+        mContext = context
+    }
+
+    constructor(data: ArrayList<T>, mContext: Context) : this(mContext) {
+        this.dataSet = data
+    }
 
     var mRecyclerViewItemClickListener: RecyclerViewItemClickListener? = null
 
