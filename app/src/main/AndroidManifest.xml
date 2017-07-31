@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".base.BaseActivity" />
-        <activity android:name=".activity.WebViewActivity"></activity>
+        <activity android:name=".activity.WebViewActivity" />
+        <activity android:name=".activity.PictureActivity"></activity>
     </application>
 
 </manifest>
