@@ -104,12 +104,38 @@ class MainActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeListener {
                 }
             }
             Constant.IOSFRAGMENT -> {
+                selectedIos()
+                main_navigation_view.setCheckedItem(R.id.item_ios)
+                main_toolbar_tv.text = "IOS"
+                if (iosFragment == null) {
+                    iosFragment = IosFragment()
+                    transaction.add(R.id.main_content, iosFragment, Constant.IosFragmentTag)
+                } else {
+                    transaction.show(iosFragment)
+                }
             }
             Constant.WELFAREFRAGMENT -> {
+                selectedWelfare()
+                main_navigation_view.setCheckedItem(R.id.item_welfare)
+                main_toolbar_tv.text = resources.getString(R.string.Welfare)
+                if (welfareFragment == null) {
+                    welfareFragment = WelfareFragment()
+                    transaction.add(R.id.main_content, welfareFragment, Constant.WelfareFragmentTag)
+                } else {
+                    transaction.show(welfareFragment)
+                }
             }
             Constant.RESFRAGMENT -> {
+                selectedRes()
+                main_navigation_view.setCheckedItem(R.id.item_res)
+                main_toolbar_tv.resources.getString(R.string.ExpandingResources)
+                if (resFragment == null) {
+                    resFragment = ResFragment()
+                    transaction.add(R.id.main_content, resFragment, Constant.ResFragmentTag)
+                } else {
+                    transaction.show(resFragment)
+                }
             }
-
         }
         transaction.commit()
     }

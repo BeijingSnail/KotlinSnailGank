@@ -14,7 +14,9 @@ import com.example.kotlin.snail.kotlinsnailgank.R
  * A simple [Fragment] subclass.
  */
 class ResFragment : Fragment() {
-
+    private val TYPE = "拓展资源"
+    private val COUNT = 10
+    private var page = 0
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
