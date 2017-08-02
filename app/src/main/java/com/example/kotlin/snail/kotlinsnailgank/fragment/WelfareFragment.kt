@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.example.kotlin.snail.kotlinsnailgank.R
+import com.example.kotlin.snail.kotlinsnailgank.activity.MainActivity
 import com.example.kotlin.snail.kotlinsnailgank.activity.PictureActivity
 import com.example.kotlin.snail.kotlinsnailgank.activity.WebViewActivity
 import com.example.kotlin.snail.kotlinsnailgank.adapter.WelfareAdapter
@@ -68,6 +69,7 @@ class WelfareFragment : Fragment(), XRecyclerView.LoadingListener, Observer<List
         welfare_xrv.adapter = adapter
         welfare_xrv.setLoadingListener(this)
         welfare_xrv.refresh()
+
     }
 
     override fun onLoadMore() {

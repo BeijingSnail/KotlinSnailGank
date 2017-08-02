@@ -9,13 +9,13 @@ import android.app.Application
 
 class GankApp : Application() {
 
+    companion object {
+        lateinit var instance: GankApp
+    }
+
     override fun onCreate() {
         super.onCreate()
         instance = this
-    }
-
-    companion object {
-        var instance: GankApp? = null
     }
 
 }

@@ -12,8 +12,6 @@ import java.util.concurrent.TimeUnit
  */
 class GankRetrofit {
 
-    private var retrofit: Retrofit? = null
-
     companion object {
         fun getRetrofit(): Retrofit {
             return Inner.instance
@@ -25,7 +23,7 @@ class GankRetrofit {
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .client(defaultOkHttpClient())
-                    .build()
+                    .build()!!
 
             fun defaultOkHttpClient(): OkHttpClient {
                 val client = OkHttpClient.Builder()

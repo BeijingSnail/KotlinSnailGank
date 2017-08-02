@@ -21,21 +21,21 @@ interface GankApi {
 
 
     @GET("api/data/{type}/{count}/{page}")
-    abstract fun getIosdDatas(
+     fun getIosdDatas(
             @Path("type") type: String,
             @Path("count") count: Int,
             @Path("page") page: Int
     ): Observable<IosResult>
 
     @GET("api/data/{type}/{count}/{page}")
-    abstract fun getWelfareDatas(
+     fun getWelfareDatas(
             @Path("type") type: String,
             @Path("count") count: Int,
             @Path("page") page: Int
     ): Observable<WelfareResult>
 
     @GET("api/data/{type}/{count}/{page}")
-    abstract fun getResDatas(
+     fun getResDatas(
             @Path("type") type: String,
             @Path("count") count: Int,
             @Path("page") page: Int
