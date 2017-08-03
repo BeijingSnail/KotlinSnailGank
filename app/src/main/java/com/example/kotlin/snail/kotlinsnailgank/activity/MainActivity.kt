@@ -12,6 +12,7 @@ import android.util.TypedValue
 import android.view.Gravity
 import android.widget.RadioGroup
 import com.example.kotlin.snail.kotlinsnailgank.R
+import com.example.kotlin.snail.kotlinsnailgank.base.BaseActivity
 import com.example.kotlin.snail.kotlinsnailgank.common.Constant
 import com.example.kotlin.snail.kotlinsnailgank.fragment.AndroidFragment
 import com.example.kotlin.snail.kotlinsnailgank.fragment.IosFragment
@@ -19,7 +20,7 @@ import com.example.kotlin.snail.kotlinsnailgank.fragment.ResFragment
 import com.example.kotlin.snail.kotlinsnailgank.fragment.WelfareFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeListener {
+class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
 
     private var fm: FragmentManager? = null
     private var androidFragment: AndroidFragment? = null
@@ -60,11 +61,10 @@ class MainActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeListener {
                     res_rb.isChecked = true
                 }
                 R.id.item_skin -> {
-                    //更换主题的dialog
-
+                    showSnackBar("该功能尚未完成")
                 }
                 R.id.about -> {
-                    //跳到关于页面
+                    showSnackBar("该功能尚未完成")
                 }
             }
             closeDrawerLayout()

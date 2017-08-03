@@ -37,11 +37,11 @@ abstract class BaseFragment : Fragment() {
     abstract fun onCreateFragmentView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View?
 
     fun showSnackBar(strId: Int) {
-        Snackbar.make(view!!, strId, Snackbar.LENGTH_SHORT)
+        Snackbar.make(view!!, strId, Snackbar.LENGTH_SHORT).show()
     }
 
     fun showSnackBar(str: String) {
-        Snackbar.make(view!!, str, Snackbar.LENGTH_SHORT)
+        Snackbar.make(view!!, str, Snackbar.LENGTH_SHORT).show()
     }
 
 }

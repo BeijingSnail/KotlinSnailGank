@@ -26,11 +26,11 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     fun showSnackBar(strId: Int) {
-        Snackbar.make(view!!, strId, Snackbar.LENGTH_SHORT)
+        Snackbar.make(view!!, strId, Snackbar.LENGTH_SHORT).show()
     }
 
     fun showSnackBar(str: String) {
-        Snackbar.make(view!!, str, Snackbar.LENGTH_SHORT)
+        Snackbar.make(view!!, str, Snackbar.LENGTH_SHORT).show()
     }
 
 
