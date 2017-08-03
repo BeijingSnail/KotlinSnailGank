@@ -32,4 +32,11 @@ object Constant {
 
     val SnialGit = "https://github.com/BeijingSnail"
     val GankIo = "http://gank.io"
+
+
 }
+
+const val ANDROID: String = "ANDROID"
+const val IOS: String = "IOS"
+const val WELFARE: String = "WELFARE"
+const val RES: String = "RES"

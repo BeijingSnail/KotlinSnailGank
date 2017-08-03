@@ -1,16 +1,17 @@
 package com.example.kotlin.snail.kotlinsnailgank.bean
 
 /**
- * Created by Snail on 2017/5/25.
+ * Created by 张志强 on 2017/8/3.
  */
-
-class ResBean {
+class DataBean {
 
     var _id: String? = null
 
     var createdAt: String? = null
 
     var desc: String? = null
+
+    var images: List<String>? = null
 
     var publishedAt: String? = null
 

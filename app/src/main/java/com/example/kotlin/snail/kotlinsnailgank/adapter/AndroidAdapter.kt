@@ -1,18 +1,15 @@
 package com.example.kotlin.snail.kotlinsnailgank.adapter
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.kotlin.snail.kotlinsnailgank.R
 
 import com.example.kotlin.snail.kotlinsnailgank.base.BaseAdapter
-import com.example.kotlin.snail.kotlinsnailgank.base.ViewHolder
-import com.example.kotlin.snail.kotlinsnailgank.bean.AndroidBean
+import com.example.kotlin.snail.kotlinsnailgank.bean.DataBean
 
 import java.util.ArrayList
 
@@ -25,7 +22,7 @@ class AndroidAdapter<T>(mContext: Context) : BaseAdapter<T>(mContext) {
     constructor(data: ArrayList<T>, mContext: Context) : this(mContext)
 
     override fun bindData(viewMap: SparseArray<View>?, t: T?, position: Int) {
-        val androidBean: AndroidBean = t as AndroidBean
+        val androidBean: DataBean = t as DataBean
 
         val desc = androidBean.desc
         val createdAt = androidBean.createdAt

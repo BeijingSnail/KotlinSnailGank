@@ -9,18 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.example.kotlin.snail.kotlinsnailgank.R
-import com.example.kotlin.snail.kotlinsnailgank.activity.MainActivity
 import com.example.kotlin.snail.kotlinsnailgank.activity.PictureActivity
-import com.example.kotlin.snail.kotlinsnailgank.activity.WebViewActivity
 import com.example.kotlin.snail.kotlinsnailgank.adapter.WelfareAdapter
 import com.example.kotlin.snail.kotlinsnailgank.base.BaseAdapter
-import com.example.kotlin.snail.kotlinsnailgank.bean.ResBean
-import com.example.kotlin.snail.kotlinsnailgank.bean.WelfareBean
+import com.example.kotlin.snail.kotlinsnailgank.bean.DataBean
 import com.example.kotlin.snail.kotlinsnailgank.common.Constant
+import com.example.kotlin.snail.kotlinsnailgank.common.WELFARE
 import com.example.kotlin.snail.kotlinsnailgank.observable.ObservableHelper
 import com.example.kotlin.snail.kotlinsnailgank.view.SpaceItemDecoration
 import com.jcodecraeer.xrecyclerview.XRecyclerView
-import kotlinx.android.synthetic.main.fragment_res.*
 import kotlinx.android.synthetic.main.fragment_welfare.*
 import rx.Observer
 import rx.android.schedulers.AndroidSchedulers
@@ -30,12 +27,10 @@ import java.util.*
 /**
  * A simple [Fragment] subclass.
  */
-class WelfareFragment : Fragment(), XRecyclerView.LoadingListener, Observer<List<WelfareBean>> {
+class WelfareFragment : Fragment(), XRecyclerView.LoadingListener, Observer<List<DataBean>> {
 
-    private val TYPE = "福利"
-    private val COUNT = 10
     private var page = 0
-    var adapter: WelfareAdapter<WelfareBean>? = null
+    var adapter: WelfareAdapter<DataBean>? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -56,7 +51,7 @@ class WelfareFragment : Fragment(), XRecyclerView.LoadingListener, Observer<List
         welfare_xrv.setRefreshProgressStyle(Constant.REFRESHSTYLE)
         welfare_xrv.setLoadingMoreProgressStyle(Constant.LOADINGSTYLE)
         welfare_xrv.addItemDecoration(SpaceItemDecoration(10))
-        adapter = WelfareAdapter<WelfareBean>(context).apply {
+        adapter = WelfareAdapter<DataBean>(context).apply {
             setRecyclerViewItemClickListener(object : BaseAdapter.RecyclerViewItemClickListener {
                 override fun onItemclick(view: View, position: Int) {
                     startActivity(Intent(context, PictureActivity::class.java)
@@ -82,7 +77,7 @@ class WelfareFragment : Fragment(), XRecyclerView.LoadingListener, Observer<List
     }
 
     private fun loadData(page: Int) {
-        ObservableHelper.getWelfareObservable(TYPE, COUNT, page)
+        ObservableHelper.getDataObservable(WELFARE,page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this)
@@ -100,20 +95,20 @@ class WelfareFragment : Fragment(), XRecyclerView.LoadingListener, Observer<List
         }
     }
 
-    override fun onNext(t: List<WelfareBean>?) {
+    override fun onNext(t: List<DataBean>?) {
         if (page == 1) {
             adapter?.removewAll()
-            adapter?.setDataSet(t as List<WelfareBean>)
+            adapter?.setDataSet(t as List<DataBean>)
             adapter?.notifyDataSetChanged()
         } else {
-            adapter?.addData(t as List<WelfareBean>)
+            adapter?.addData(t as List<DataBean>)
         }
     }
 
     /**
      * 提取WelfareBean中的图片url
      */
-    fun transform(list: List<WelfareBean>): ArrayList<String> {
+    fun transform(list: List<DataBean>): ArrayList<String> {
         val arrayList = list.mapTo(ArrayList<String>()) { it.url!! }
         //        val arrayList = ArrayList<String>()
 //        for (welfareBean in list) {

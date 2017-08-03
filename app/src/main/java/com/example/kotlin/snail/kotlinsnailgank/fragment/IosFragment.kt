@@ -13,13 +13,12 @@ import com.example.kotlin.snail.kotlinsnailgank.R
 import com.example.kotlin.snail.kotlinsnailgank.activity.WebViewActivity
 import com.example.kotlin.snail.kotlinsnailgank.adapter.IosAdapter
 import com.example.kotlin.snail.kotlinsnailgank.base.BaseAdapter
-import com.example.kotlin.snail.kotlinsnailgank.bean.AndroidBean
-import com.example.kotlin.snail.kotlinsnailgank.bean.IosBean
+import com.example.kotlin.snail.kotlinsnailgank.bean.DataBean
 import com.example.kotlin.snail.kotlinsnailgank.common.Constant
+import com.example.kotlin.snail.kotlinsnailgank.common.IOS
 import com.example.kotlin.snail.kotlinsnailgank.observable.ObservableHelper
 import com.example.kotlin.snail.kotlinsnailgank.view.SpaceItemDecoration
 import com.jcodecraeer.xrecyclerview.XRecyclerView
-import kotlinx.android.synthetic.main.activity_android_fragment.*
 import kotlinx.android.synthetic.main.fragment_ios.*
 import rx.Observer
 import rx.android.schedulers.AndroidSchedulers
@@ -29,12 +28,10 @@ import java.util.*
 /**
  * A simple [Fragment] subclass.
  */
-class IosFragment : Fragment(), XRecyclerView.LoadingListener, Observer<List<IosBean>> {
+class IosFragment : Fragment(), XRecyclerView.LoadingListener, Observer<List<DataBean>> {
 
-    private val TYPE = "iOS"
-    private val COUNT = 10
     private var page = 0
-    var adapter: IosAdapter<IosBean>? = null
+    var adapter: IosAdapter<DataBean>? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -53,10 +50,10 @@ class IosFragment : Fragment(), XRecyclerView.LoadingListener, Observer<List<Ios
         //设置刷新风格
         ios_xrv.setRefreshProgressStyle(Constant.REFRESHSTYLE)
         ios_xrv.setLoadingMoreProgressStyle(Constant.LOADINGSTYLE)
-        adapter = IosAdapter<IosBean>(context).apply {
+        adapter = IosAdapter<DataBean>(context).apply {
             setRecyclerViewItemClickListener(object : BaseAdapter.RecyclerViewItemClickListener {
                 override fun onItemclick(view: View, position: Int) {
-                    val bean = adapter?.getItem(position) as IosBean
+                    val bean = adapter?.getItem(position) as DataBean
                     startActivity(Intent(context, WebViewActivity::class.java).putExtra(Constant.OPENURL, bean.url))
                 }
             })
@@ -77,18 +74,18 @@ class IosFragment : Fragment(), XRecyclerView.LoadingListener, Observer<List<Ios
     }
 
     private fun loadData(page: Int) {
-        ObservableHelper.getIosObservable(TYPE, COUNT, page)
+        ObservableHelper.getDataObservable(IOS,page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this)
     }
 
-    override fun onNext(t: List<IosBean>?) {
+    override fun onNext(t: List<DataBean>?) {
         if (page == 1) {
             adapter?.removewAll()
-            adapter?.dataSet = t as ArrayList<IosBean>
+            adapter?.dataSet = t as ArrayList<DataBean>
         } else {
-            adapter?.addData(t as ArrayList<IosBean>)
+            adapter?.addData(t as ArrayList<DataBean>)
         }
     }
 

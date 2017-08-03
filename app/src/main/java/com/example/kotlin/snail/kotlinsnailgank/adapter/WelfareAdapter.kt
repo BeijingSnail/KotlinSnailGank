@@ -9,7 +9,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.kotlin.snail.kotlinsnailgank.R
 import com.example.kotlin.snail.kotlinsnailgank.base.BaseAdapter
-import com.example.kotlin.snail.kotlinsnailgank.bean.WelfareBean
+import com.example.kotlin.snail.kotlinsnailgank.bean.DataBean
 
 /**
  * Created by 张志强 on 2017/7/31.
@@ -26,7 +26,7 @@ class WelfareAdapter<T>(context: Context) : BaseAdapter<T>(context) {
     }
 
     override fun bindData(viewMap: SparseArray<View>?, t: T?, position: Int) {
-        var welfareBean: WelfareBean = t as WelfareBean
+        var welfareBean: DataBean = t as DataBean
         (viewMap!![R.id.welfare_time_tv] as TextView).text = welfareBean.createdAt
         (viewMap!![R.id.welfare_auth_tv] as TextView).text = welfareBean.who
         var iamgeUrl = welfareBean.url

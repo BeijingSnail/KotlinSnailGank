@@ -9,7 +9,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.kotlin.snail.kotlinsnailgank.R
 import com.example.kotlin.snail.kotlinsnailgank.base.BaseAdapter
-import com.example.kotlin.snail.kotlinsnailgank.bean.IosBean
+import com.example.kotlin.snail.kotlinsnailgank.bean.DataBean
 
 /**
  * Created by 张志强 on 2017/7/31.
@@ -27,7 +27,7 @@ class IosAdapter<T>(context: Context) : BaseAdapter<T>(context) {
     }
 
     override fun bindData(viewMap: SparseArray<View>?, t: T?, position: Int) {
-        val iosBean: IosBean = t as IosBean
+        val iosBean: DataBean = t as DataBean
         val desc = iosBean.desc
         val creatAt = iosBean.createdAt
         val auth = iosBean.who

@@ -12,7 +12,8 @@ import com.example.kotlin.snail.kotlinsnailgank.activity.WebViewActivity
 import com.example.kotlin.snail.kotlinsnailgank.adapter.AndroidAdapter
 import com.example.kotlin.snail.kotlinsnailgank.base.BaseAdapter
 import com.example.kotlin.snail.kotlinsnailgank.base.BaseFragment
-import com.example.kotlin.snail.kotlinsnailgank.bean.AndroidBean
+import com.example.kotlin.snail.kotlinsnailgank.bean.DataBean
+import com.example.kotlin.snail.kotlinsnailgank.common.ANDROID
 import com.example.kotlin.snail.kotlinsnailgank.common.Constant
 import com.example.kotlin.snail.kotlinsnailgank.observable.ObservableHelper
 import com.example.kotlin.snail.kotlinsnailgank.view.SpaceItemDecoration
@@ -23,12 +24,10 @@ import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import java.util.*
 
-class AndroidFragment : BaseFragment(), XRecyclerView.LoadingListener, Observer<List<AndroidBean>> {
+class AndroidFragment : BaseFragment(), XRecyclerView.LoadingListener, Observer<List<DataBean>> {
 
     private var page = 0
-    private val TYPE = "Android"
-    private val COUNT = 10
-    private var adapter: AndroidAdapter<AndroidBean>? = null
+    private var adapter: AndroidAdapter<DataBean>? = null
 
     override fun onCreateFragmentView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.activity_android_fragment, container, false)
@@ -47,10 +46,10 @@ class AndroidFragment : BaseFragment(), XRecyclerView.LoadingListener, Observer<
         //设置刷新风格
         android_xrv.setRefreshProgressStyle(Constant.REFRESHSTYLE)
         android_xrv.setLoadingMoreProgressStyle(Constant.LOADINGSTYLE)
-        adapter = AndroidAdapter<AndroidBean>(context).apply {
+        adapter = AndroidAdapter<DataBean>(context).apply {
             setRecyclerViewItemClickListener(object : BaseAdapter.RecyclerViewItemClickListener {
                 override fun onItemclick(view: View, position: Int) {
-                    val bean = adapter?.getItem(position) as AndroidBean
+                    val bean = adapter?.getItem(position) as DataBean
                     startActivity(Intent(context, WebViewActivity::class.java).putExtra(Constant.OPENURL, bean.url))
                 }
             })
@@ -71,19 +70,19 @@ class AndroidFragment : BaseFragment(), XRecyclerView.LoadingListener, Observer<
     }
 
     private fun loadData(page: Int) {
-        ObservableHelper.getAndroidObservable(TYPE, COUNT, page)
+        ObservableHelper.getDataObservable(ANDROID, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this)
 
     }
 
-    override fun onNext(list: List<AndroidBean>?) {
+    override fun onNext(list: List<DataBean>?) {
         if (page == 1) {
             adapter?.removewAll()
-            adapter?.dataSet = list as ArrayList<AndroidBean>
+            adapter?.dataSet = list as ArrayList<DataBean>
         } else {
-            adapter?.addData(list as ArrayList<AndroidBean>)
+            adapter?.addData(list as ArrayList<DataBean>)
         }
     }
 

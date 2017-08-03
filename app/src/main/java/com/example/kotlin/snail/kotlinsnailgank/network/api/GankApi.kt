@@ -1,9 +1,6 @@
 package com.example.kotlin.snail.kotlinsnailgank.network.api
 
-import com.example.kotlin.snail.kotlinsnailgank.bean.AndroidResult
-import com.example.kotlin.snail.kotlinsnailgank.bean.IosResult
-import com.example.kotlin.snail.kotlinsnailgank.bean.ResResult
-import com.example.kotlin.snail.kotlinsnailgank.bean.WelfareResult
+import com.example.kotlin.snail.kotlinsnailgank.bean.*
 import retrofit2.http.GET
 import retrofit2.http.Path
 import rx.Observable
@@ -12,32 +9,27 @@ import rx.Observable
  * Created by 张志强 on 2017/7/31.
  */
 interface GankApi {
-    @GET("api/data/{type}/{count}/{page}")
-    fun getAndroidDatas(
-            @Path("type") type: String,
-            @Path("count") count: Int,
-            @Path("page") page: Int
-    ): Observable<AndroidResult>
+    /**
+     * Android所有数据
+     */
+    @GET("api/data/Android/10/{page}")
+    fun getAndroidDatas(@Path("page") page: Int): Observable<JsonResult<List<DataBean>>>
 
+    /**
+     * iOS所有数据
+     */
+    @GET("api/data/iOS/10/{page}")
+    fun getIosdDatas(@Path("page") page: Int): Observable<JsonResult<List<DataBean>>>
 
-    @GET("api/data/{type}/{count}/{page}")
-     fun getIosdDatas(
-            @Path("type") type: String,
-            @Path("count") count: Int,
-            @Path("page") page: Int
-    ): Observable<IosResult>
+    /**
+     * 福利
+     */
+    @GET("api/data/福利/10/{page}")
+    fun getWelfareDatas(@Path("page") page: Int): Observable<JsonResult<List<DataBean>>>
 
-    @GET("api/data/{type}/{count}/{page}")
-     fun getWelfareDatas(
-            @Path("type") type: String,
-            @Path("count") count: Int,
-            @Path("page") page: Int
-    ): Observable<WelfareResult>
-
-    @GET("api/data/{type}/{count}/{page}")
-     fun getResDatas(
-            @Path("type") type: String,
-            @Path("count") count: Int,
-            @Path("page") page: Int
-    ): Observable<ResResult>
+    /**
+     * 拓展资源
+     */
+    @GET("api/data/拓展资源/10/{page}")
+    fun getResDatas(@Path("page") page: Int): Observable<JsonResult<List<DataBean>>>
 }

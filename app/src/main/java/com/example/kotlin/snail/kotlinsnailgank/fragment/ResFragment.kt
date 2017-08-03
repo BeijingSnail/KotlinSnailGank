@@ -13,13 +13,12 @@ import com.example.kotlin.snail.kotlinsnailgank.R
 import com.example.kotlin.snail.kotlinsnailgank.activity.WebViewActivity
 import com.example.kotlin.snail.kotlinsnailgank.adapter.ResAdapter
 import com.example.kotlin.snail.kotlinsnailgank.base.BaseAdapter
-import com.example.kotlin.snail.kotlinsnailgank.bean.IosBean
-import com.example.kotlin.snail.kotlinsnailgank.bean.ResBean
+import com.example.kotlin.snail.kotlinsnailgank.bean.DataBean
 import com.example.kotlin.snail.kotlinsnailgank.common.Constant
+import com.example.kotlin.snail.kotlinsnailgank.common.RES
 import com.example.kotlin.snail.kotlinsnailgank.observable.ObservableHelper
 import com.example.kotlin.snail.kotlinsnailgank.view.SpaceItemDecoration
 import com.jcodecraeer.xrecyclerview.XRecyclerView
-import kotlinx.android.synthetic.main.fragment_ios.*
 import kotlinx.android.synthetic.main.fragment_res.*
 import rx.Observer
 import rx.android.schedulers.AndroidSchedulers
@@ -29,12 +28,10 @@ import rx.schedulers.Schedulers
 /**
  * A simple [Fragment] subclass.
  */
-class ResFragment : Fragment(), XRecyclerView.LoadingListener, Observer<List<ResBean>> {
+class ResFragment : Fragment(), XRecyclerView.LoadingListener, Observer<List<DataBean>> {
 
-    private val TYPE = "拓展资源"
-    private val COUNT = 10
     private var page = 0
-    private var adapter: ResAdapter<ResBean>? = null
+    private var adapter: ResAdapter<DataBean>? = null
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -57,10 +54,10 @@ class ResFragment : Fragment(), XRecyclerView.LoadingListener, Observer<List<Res
         res_xrv.setLoadingMoreProgressStyle(Constant.LOADINGSTYLE)
         res_xrv.addItemDecoration(SpaceItemDecoration(10))
 
-        adapter = ResAdapter<ResBean>(context).apply {
+        adapter = ResAdapter<DataBean>(context).apply {
             setRecyclerViewItemClickListener(object : BaseAdapter.RecyclerViewItemClickListener {
                 override fun onItemclick(view: View, position: Int) {
-                    val bean = adapter?.getItem(position) as ResBean
+                    val bean = adapter?.getItem(position) as DataBean
                     startActivity(Intent(context, WebViewActivity::class.java).putExtra(Constant.OPENURL, bean.url))
                 }
             })
@@ -80,7 +77,7 @@ class ResFragment : Fragment(), XRecyclerView.LoadingListener, Observer<List<Res
     }
 
     private fun loadData(page: Int) {
-        ObservableHelper.getResObservable(TYPE, COUNT, page)
+        ObservableHelper.getDataObservable(RES,page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this)
@@ -98,12 +95,12 @@ class ResFragment : Fragment(), XRecyclerView.LoadingListener, Observer<List<Res
         }
     }
 
-    override fun onNext(t: List<ResBean>?) {
+    override fun onNext(t: List<DataBean>?) {
         if (page == 1) {
             adapter?.removewAll()
-            adapter?.setDataSet(t as List<ResBean>)
+            adapter?.setDataSet(t as List<DataBean>)
         } else {
-            adapter?.addData(t as List<ResBean>)
+            adapter?.addData(t as List<DataBean>)
         }
     }
 }

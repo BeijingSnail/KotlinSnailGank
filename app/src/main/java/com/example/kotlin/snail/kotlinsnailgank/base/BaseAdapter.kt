@@ -39,6 +39,7 @@ abstract class BaseAdapter<T>(context: Context) : RecyclerView.Adapter<ViewHolde
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
 
         var view = getViewResource(viewType)
+
         view.setOnClickListener {
             mRecyclerViewItemClickListener?.onItemclick(view, view.tag as Int)
         }
